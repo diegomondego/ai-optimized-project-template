@@ -1,0 +1,61 @@
+# .claudeignore
+# Files and directories excluded from Claude Code's context window.
+# Uses .gitignore syntax. Keep this file in sync with .cursorignore and .llmignore.
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+
+# Generated / compiled
+**/__generated__/
+**/*.generated.ts
+coverage/
+.nyc_output/
+
+# Locks (too noisy, not useful for AI context)
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Large data files
+data/
+*.sql
+*.csv
+*.json.bak
+public/assets/videos/
+public/assets/large/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# OS / editor artifacts
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Log files
+*.log
+logs/
+
+# Cache directories
+.cache/
+.parcel-cache/
+.eslintcache
+
+# Prisma generated client (can be regenerated)
+node_modules/.prisma/
+
+# Test snapshots (large, not useful for AI)
+**/__snapshots__/

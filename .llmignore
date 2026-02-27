@@ -1,0 +1,32 @@
+# .llmignore
+# Universal LLM ignore file (emerging standard, .gitignore syntax).
+# Respected by Aider, Codex, and other tools as a cross-tool standard.
+# Mirror of .claudeignore and .cursorignore.
+
+node_modules/
+dist/
+build/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+**/__generated__/
+**/*.generated.ts
+coverage/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+data/
+*.sql
+*.csv
+*.json.bak
+public/assets/videos/
+public/assets/large/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+logs/
+.cache/
+**/__snapshots__/

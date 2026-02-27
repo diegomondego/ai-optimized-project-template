@@ -1,0 +1,40 @@
+# .cursorignore
+# Files completely invisible to Cursor (not indexed, not referenced).
+# Mirror of .claudeignore — keep them in sync.
+# Use .cursorindexignore to exclude from auto-index but still allow @reference.
+
+node_modules/
+.pnp
+.pnp.js
+dist/
+build/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+**/__generated__/
+**/*.generated.ts
+coverage/
+.nyc_output/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+data/
+*.sql
+*.csv
+*.json.bak
+public/assets/videos/
+public/assets/large/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.log
+logs/
+.cache/
+.parcel-cache/
+.eslintcache
+**/__snapshots__/

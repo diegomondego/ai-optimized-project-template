@@ -1,0 +1,48 @@
+---
+description: API route conventions for Next.js App Router
+globs: ["src/app/api/**"]
+alwaysApply: false
+---
+
+# API route conventions
+
+API routes are **thin controllers**. They do three things only:
+1. Parse and validate the request (use Zod schemas from the feature's `.schema.ts`)
+2. Call the relevant feature service
+3. Return a typed response
+
+## Template
+
+```ts
+// src/app/api/<resource>/route.ts
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { featureService } from "@/features/<feature>/<feature>.service";
+import { requestSchema } from "@/features/<feature>/<feature>.schema";
+
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const parsed = requestSchema.safeParse(body);
+
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+  }
+
+  try {
+    const result = await featureService.doSomething(parsed.data);
+    return NextResponse.json(result, { status: 200 });
+  } catch (err) {
+    // Log the error, return generic message to client
+    console.error("[api/<resource>]", err);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}
+```
+
+## Rules
+
+- No business logic in route handlers — always delegate to a service.
+- Always validate input with Zod before using it.
+- Never expose raw error messages or stack traces to the client.
+- Always return typed, consistent JSON structures.
+- Use `NextResponse.json()` — never use `new Response()` directly.

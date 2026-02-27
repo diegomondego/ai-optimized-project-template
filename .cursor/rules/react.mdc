@@ -1,0 +1,47 @@
+---
+description: React and TypeScript component conventions
+globs: ["**/*.tsx", "**/*.jsx"]
+alwaysApply: false
+---
+
+# React component conventions
+
+## Component structure (order matters)
+
+```tsx
+// 1. Imports (external → internal → types)
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import type { User } from "@/features/auth/auth.types";
+
+// 2. Types / interfaces for this component only
+interface Props {
+  user: User;
+  onSubmit: (data: FormData) => Promise<void>;
+}
+
+// 3. Component (PascalCase, default export)
+export default function LoginForm({ user, onSubmit }: Props) {
+  // 3a. Hooks first
+  const [isPending, setIsPending] = useState(false);
+
+  // 3b. Derived state / handlers
+  const handleSubmit = async (e: React.FormEvent) => { ... };
+
+  // 3c. Early returns for loading / error states
+  if (!user) return null;
+
+  // 3d. Main render
+  return ( ... );
+}
+```
+
+## Rules
+
+- One component per file (with its subcomponents allowed in same file if under 50 lines total).
+- Props interface always named `Props` within the file.
+- Never inline complex logic in JSX — extract to a named handler.
+- `use client` directive only when interactivity or browser APIs are needed.
+- Server Components are the default in Next.js App Router — keep them server-side whenever possible.
+- Extract hooks to `use-<name>.hook.ts` when a hook is reused across components.
+- Use Tailwind utility classes. Never write custom CSS unless absolutely necessary.

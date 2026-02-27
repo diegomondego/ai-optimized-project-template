@@ -1,0 +1,57 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+
+# Generated
+**/__generated__/
+**/*.generated.ts
+coverage/
+.nyc_output/
+
+# Environment (never commit secrets)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Lock files (keep pnpm-lock.yaml for reproducibility)
+package-lock.json
+yarn.lock
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+.next/cache/
+
+# Prisma
+node_modules/.prisma/
+
+# Test artifacts
+**/__snapshots__/
+playwright-report/
+test-results/

@@ -1,0 +1,65 @@
+---
+description: Testing conventions and patterns
+globs: ["**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "tests/**"]
+alwaysApply: false
+---
+
+# Testing conventions
+
+## Unit tests (colocated, Vitest)
+
+Unit test files live next to the file they test:
+```
+src/features/auth/auth.service.ts
+src/features/auth/auth.service.test.ts   ← colocated
+```
+
+### Template
+
+```ts
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { authService } from "./auth.service";
+
+describe("authService", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  describe("login", () => {
+    it("returns a session token for valid credentials", async () => {
+      const result = await authService.login({ email: "user@example.com", password: "correct" });
+      expect(result.token).toBeDefined();
+    });
+
+    it("throws AuthError for invalid credentials", async () => {
+      await expect(
+        authService.login({ email: "user@example.com", password: "wrong" })
+      ).rejects.toThrow("InvalidCredentials");
+    });
+  });
+});
+```
+
+## E2E tests (Playwright, in tests/e2e/)
+
+```ts
+// tests/e2e/auth.spec.ts
+import { test, expect } from "@playwright/test";
+
+test("user can log in and reach dashboard", async ({ page }) => {
+  await page.goto("/login");
+  await page.getByLabel("Email").fill("user@example.com");
+  await page.getByLabel("Password").fill("password");
+  await page.getByRole("button", { name: "Sign in" }).click();
+  await expect(page).toHaveURL("/dashboard");
+});
+```
+
+## Rules
+
+- Test every exported function in every service file.
+- Test edge cases and error paths, not just happy paths.
+- Mock external dependencies (database, API calls) in unit tests.
+- E2E tests should test complete user flows, not implementation details.
+- Never test internal/private implementation — test the public interface.
+- Aim for >80% branch coverage on service files.

@@ -1,0 +1,32 @@
+---
+description: Core project rules — always applied to every prompt
+alwaysApply: true
+---
+
+# Project overview
+
+[Your project name] — [one-line description].
+Stack: [Next.js 15 · TypeScript · Tailwind · Prisma · PostgreSQL]
+
+## Folder structure (3-level max)
+
+```
+src/
+  app/          Routing only — no business logic
+  features/     All domain logic (auth, billing, dashboard…)
+  components/   Shared UI components only
+  lib/          Shared utilities (api-client, formatters)
+  config/       Environment variables and constants
+```
+
+## Always follow these rules
+
+- TypeScript strict mode. Never use `any`.
+- Files: kebab-case. Components: PascalCase. Functions: camelCase.
+- File suffix by role: `.service.ts` · `.types.ts` · `.test.ts` · `.schema.ts` · `.hook.ts`
+- Max file size: 300 lines. Split files with multiple responsibilities.
+- Use `@/` path alias. Never use `../../..` relative imports.
+- No barrel files (`index.ts` re-exports). Import directly from source.
+- Features do not import from each other. Compose only in `src/app/`.
+- Never create `utils.ts`, `helpers.ts`, `misc.ts`.
+- Run `pnpm test` after every non-trivial change.
